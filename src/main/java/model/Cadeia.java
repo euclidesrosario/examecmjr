@@ -13,6 +13,22 @@ public class Cadeia {
 
 	@Id @GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
+	private String nome;
+	public String getNome() {
+		return nome;
+	}
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+	public List<Pessoa> getPessoa() {
+		return pessoa;
+	}
+	public void setPessoa(List<Pessoa> pessoa) {
+		this.pessoa = pessoa;
+	}
+	public void setId(long id) {
+		this.id = id;
+	}
 	private String localizacao;
 	private String provincia;
 	
