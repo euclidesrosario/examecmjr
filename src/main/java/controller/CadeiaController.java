@@ -16,70 +16,64 @@ import repository.CadeiaRepo;
 
 @Controller
 public class CadeiaController {
-	@Autowired private CadeiaRepo cadeiaRepo;
-	
+	@Autowired
+	private CadeiaRepo cadeiaRepo;
+
 	@RequestMapping("/salvarCadeia")
-	public ModelAndView criarView () {
+	public ModelAndView criarView() {
 		ModelAndView mv = new ModelAndView("/cadeia/Criarcadeia");
 		return mv;
 	}
-	
+
 	@PostMapping("/salvarCadeia")
 	public ModelAndView criar(Cadeia cadeia) {
 		ModelAndView mv = new ModelAndView("/cadeia/Criarcadeia");
-	Cadeia cadeiaExistente = cadeiaRepo.findByNome(cadeia.getNome());
-		if(cadeiaExistente == null) {
+		Cadeia cadeiaExistente = cadeiaRepo.findByNome(cadeia.getNome());
+		if (cadeiaExistente == null) {
 			cadeiaRepo.save(cadeia);
 		}
 		String mensagem = "erro, a cadeira ja existe";
 		mv.addObject("mensagem", mensagem);
 		return mv;
-		
+
 	}
-	
+
 	@RequestMapping("listaCadeias")
 	public ModelAndView Listar() {
 		ModelAndView mv = new ModelAndView("/cadeia/listaCadeias");
 		List<Cadeia> cadeia = cadeiaRepo.findAll();
 		return mv.addObject("cadeia", cadeia);
 	}
-	
-	
-	
-	
+
 	@RequestMapping("/actualizarCadeia")
-	public ModelAndView ViewActualizar () {
+	public ModelAndView ViewActualizar() {
 		ModelAndView mv = new ModelAndView("/cadeia/Criarcadeia");
 		return mv;
-		
+
 	}
-	
+
 	@PutMapping("/actualizarCadeia/{id}")
-	public ModelAndView ctualizar (@PathVariable long id, Cadeia cadeiaNova) {
+	public ModelAndView ctualizar(@PathVariable long id, Cadeia cadeiaNova) {
 		ModelAndView mv = new ModelAndView("/cadeia/Criarcadeia");
-		
-		 Cadeia cadeiaAntiga = cadeiaRepo.findById(id);
-		 BeanUtils.copyProperties(cadeiaNova, cadeiaAntiga);
-		 cadeiaRepo.save(cadeiaAntiga);
-		 
+
+		Cadeia cadeiaAntiga = cadeiaRepo.findById(id);
+		BeanUtils.copyProperties(cadeiaNova, cadeiaAntiga, "id");
+		cadeiaRepo.save(cadeiaAntiga);
+
 		return mv;
-		
+
 	}
-	
-	public ModelAndView pesquisaView (String nome) {
+
+	public ModelAndView pesquisaView(String nome) {
 		ModelAndView mv = new ModelAndView("/cadeia/listaCadeias");
 		Cadeia cadeiaExistente = cadeiaRepo.findByNome(nome);
-		if(cadeiaExistente != null) {
+		if (cadeiaExistente != null) {
 			return mv.addObject("cadeiaExistente", cadeiaExistente);
 		}
 		String mensagem = "erro, a cadeira ja existe";
 		mv.addObject("mensagem", mensagem);
 		return mv;
-		
-		
 
-		
-		
 	}
 
 }
