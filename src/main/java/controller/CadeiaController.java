@@ -26,13 +26,13 @@ public class CadeiaController {
 	
 	@PostMapping("/salvarCadeia")
 	public ModelAndView criar(Cadeia cadeia) {
-		 ModelAndView mv = new ModelAndView("");
+		ModelAndView mv = new ModelAndView("/cadeia/Criarcadeia");
 	Cadeia cadeiaExistente = cadeiaRepo.findByNome(cadeia.getNome());
 		if(cadeiaExistente == null) {
 			cadeiaRepo.save(cadeia);
 		}
 		String mensagem = "erro, a cadeira ja existe";
-		mv.addObject("cadeia", mensagem);
+		mv.addObject("mensagem", mensagem);
 		return mv;
 		
 	}
@@ -49,14 +49,14 @@ public class CadeiaController {
 	
 	@RequestMapping("/actualizarCadeia")
 	public ModelAndView ViewActualizar () {
-		 ModelAndView mv = new ModelAndView("");
+		ModelAndView mv = new ModelAndView("/cadeia/Criarcadeia");
 		return mv;
 		
 	}
 	
 	@PutMapping("/actualizarCadeia/{id}")
 	public ModelAndView ctualizar (@PathVariable long id, Cadeia cadeiaNova) {
-		 ModelAndView mv = new ModelAndView("");
+		ModelAndView mv = new ModelAndView("/cadeia/Criarcadeia");
 		
 		 Cadeia cadeiaAntiga = cadeiaRepo.findById(id);
 		 BeanUtils.copyProperties(cadeiaNova, cadeiaAntiga);
@@ -66,5 +66,20 @@ public class CadeiaController {
 		
 	}
 	
+	public ModelAndView pesquisaView (String nome) {
+		ModelAndView mv = new ModelAndView("/cadeia/listaCadeias");
+		Cadeia cadeiaExistente = cadeiaRepo.findByNome(nome);
+		if(cadeiaExistente != null) {
+			return mv.addObject("cadeiaExistente", cadeiaExistente);
+		}
+		String mensagem = "erro, a cadeira ja existe";
+		mv.addObject("mensagem", mensagem);
+		return mv;
+		
+		
+
+		
+		
+	}
 
 }
