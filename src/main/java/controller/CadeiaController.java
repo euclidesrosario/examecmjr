@@ -2,6 +2,7 @@ package controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import model.Cadeia;
@@ -12,7 +13,12 @@ public class CadeiaController {
 	@Autowired private CadeiaRepo cadeiaRepo;
 	
 	
+	public ModelAndView criarView () {
+		ModelAndView mv = new ModelAndView("/cadeia/Criarcadeia");
+		return mv;
+	}
 	
+	@RequestMapping("/salvarCadeia")
 	public ModelAndView criar(Cadeia cadeia) {
 		 ModelAndView mv = new ModelAndView("");
 	Cadeia cadeiaExistente = cadeiaRepo.findByNome(cadeia.getNome());
@@ -22,9 +28,10 @@ public class CadeiaController {
 		String mensagem = "erro, a cadeira ja existe";
 		mv.addObject(mensagem, "mensagem");
 		return mv;
-		 
-		
 		
 	}
+	
+	
+	
 
 }
