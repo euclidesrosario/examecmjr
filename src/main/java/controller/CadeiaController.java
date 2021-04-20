@@ -1,7 +1,10 @@
 package controller;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -31,7 +34,25 @@ public class CadeiaController {
 		
 	}
 	
+	@RequestMapping("/actualizarCadeia")
+	public ModelAndView ViewActualizar () {
+		 ModelAndView mv = new ModelAndView("");
+		return mv;
+		
+	}
 	
+	@PutMapping("/actualizarCadeia/{id}")
+	public ModelAndView ctualizar (@PathVariable long id, Cadeia cadeiaNova) {
+		 ModelAndView mv = new ModelAndView("");
+		
+		 Cadeia cadeiaAntiga = cadeiaRepo.findById(id);
+		 BeanUtils.copyProperties(cadeiaNova, cadeiaAntiga);
+		 
+		 cadeiaRepo.save(cadeiaAntiga);
+		 
+		return mv;
+		
+	}
 	
 
 }

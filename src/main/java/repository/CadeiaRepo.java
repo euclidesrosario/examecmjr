@@ -7,5 +7,5 @@ import model.Cadeia;
 public interface CadeiaRepo extends JpaRepository<Cadeia, Long> {
 
 	Cadeia findByNome(String nome);
-
+	Cadeia findById(long id);
 }
