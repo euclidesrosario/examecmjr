@@ -10,18 +10,19 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-
 import model.Cadeia;
 import repository.CadeiaRepo;
+
 
 @Controller
 public class CadeiaController {
 	@Autowired
 	private CadeiaRepo cadeiaRepo;
 
-	@RequestMapping("/salvarCadeia")
+	
+	@RequestMapping("/salvarcadeia")
 	public ModelAndView criarView() {
-		ModelAndView mv = new ModelAndView("/cadeia/Criarcadeia");
+		ModelAndView mv = new ModelAndView("/cadeia/CriarCadeia");
 		return mv;
 	}
 
